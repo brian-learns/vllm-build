@@ -13,7 +13,7 @@ uses [`uv`](https://docs.astral.sh/uv/) to install a python virtual environment 
 ## tested with 
 
 ```
-v0.19.0 ✅ 0.19.1+cu130 torch_accelerator: cuda
+v0.19.1 ✅ 0.19.1+cu130 torch_accelerator: cuda
 v0.20.0 ✅ 0.20.0 torch_accelerator: cuda
 ```
 
