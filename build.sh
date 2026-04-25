@@ -39,15 +39,10 @@ export CUDA_HOME=/usr/local/cuda         # prevents build errors
 export UV_TORCH_BACKEND=auto             # torch backend selection
 export MAX_JOBS=4                        # limit CUDA compiler jobs when building wheels
 
+# create and activate the virtual environment
 uv venv "${venv}"
-
 # shellcheck source=/dev/null
 source "${venv}/bin/activate"
-
-# PyTorch
-#uv pip install torch torchvision torchaudio --torch-backend auto
-#python -c "import torch; print(torch.accelerator.current_accelerator().type)"
-# cuda
 
 # build from source so it all compiles
 time uv pip install "${giturl}"

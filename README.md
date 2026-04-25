@@ -1,6 +1,6 @@
 # vllm-build
 
-I don't like using docker, so this is a script to build vllm on my DGX Spark.
+I don't like using docker, so this is a script to build [vLLM](https://github.com/vllm-project/vllm) on my DGX Spark.
 
 ```
 $ ./build.sh 
