@@ -10,4 +10,13 @@ Usage: ./build.sh <vllm version tag to build>
 
 uses [`uv`](https://docs.astral.sh/uv/) to install a python virtual environment and the requested version of vLLM.
 
+## tested with 
 
+```
+v0.19.0 ✅ 0.19.1+cu130 torch_accelerator: cuda
+v0.20.0 ✅ 0.20.0 torch_accelerator: cuda
+```
+
+## `pip freeze`
+
+`requirements.txt` format `pip freeze` for successfull builds in `/requirements/` folder
