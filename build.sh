@@ -25,19 +25,19 @@ repo="https://github.com/vllm-project/vllm"
 giturl="git+${repo}/@${version}"
 echo "build vllm @ $version"
 echo ""
-echo "about to create virtual environment $DIR/$venv and install $giturl"
+echo "building ${giturl}[fastsafetensors]"
+echo " in $DIR/$venv"
 echo ""
-read -r -p "Are you sure you want to proceed? [y/N] " confirm
-if [[ "$confirm" != [yY]* ]]; then
-    exit 1
-fi
 
 # build environment for DGX Spark
 TRITON_PTXAS_PATH=$(which ptxas)
 export TRITON_PTXAS_PATH                 # prevents build errors
 export CUDA_HOME=/usr/local/cuda         # prevents build errors
 export UV_TORCH_BACKEND=auto             # torch backend selection
-export MAX_JOBS=4                        # limit CUDA compiler jobs when building wheels
+export UV_VENV_RELOCATABLE="${UV_VENV_RELOCATABLE-1}"
+export MAX_JOBS="${MAX_JOBS:-8}"         # limit CUDA compiler jobs when building wheels
+export TORCH_CUDA_ARCH_LIST=12.1a
+export UV_CACHE_DIR="$DIR"/uv-cache      # clear the local cache to force rebuild
 
 # create and activate the virtual environment
 uv venv "${venv}"
@@ -45,16 +45,18 @@ uv venv "${venv}"
 source "${venv}/bin/activate"
 
 # build from source so it all compiles
-time uv pip install "${giturl}"
+time uv pip install "${giturl}"[fastsafetensors]
 
 echo "built, now testing..."
 # test that it runs without any errors, and that torch looks configured
 final_version=$(vllm -v)
 torch_accelerator=$(python -c "import torch; print(torch.accelerator.current_accelerator().type)")
 
-mkdir -p $DIR/requirements/
+mkdir -p "$DIR"/requirements/
 # get the requirements for easy duplication
 uv pip freeze > "requirements/requirements.${version}.txt"
+
+vllm collect-env > "requirements/collect-env.${version}.txt"
 
 echo "✅ ${final_version} torch_accelerator: ${torch_accelerator}"
 echo ">> initialize environment:"
