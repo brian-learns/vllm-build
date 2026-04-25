@@ -13,6 +13,7 @@ uses [`uv`](https://docs.astral.sh/uv/) to install a python virtual environment 
 ## tested with 
 
 ```
+v0.19.0 ✅ 0.19.0+cu130 torch_accelerator: cuda
 v0.19.1 ✅ 0.19.1+cu130 torch_accelerator: cuda
 v0.20.0 ✅ 0.20.0 torch_accelerator: cuda
 ```
@@ -20,3 +21,7 @@ v0.20.0 ✅ 0.20.0 torch_accelerator: cuda
 ## `pip freeze`
 
 `requirements.txt` format `pip freeze` for successfull builds in `/requirements/` folder
+
+## other work
+
+See https://github.com/vllm-project/vllm/issues/36821 for more DGX Spark vllm build scripts and docker images.
