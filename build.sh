@@ -45,7 +45,7 @@ uv venv "${venv}"
 source "${venv}/bin/activate"
 
 # build from source so it all compiles
-time uv pip install "${giturl}"[fastsafetensors]
+time uv pip install "${giturl}[fastsafetensors]"
 
 echo "built, now testing..."
 # test that it runs without any errors, and that torch looks configured
