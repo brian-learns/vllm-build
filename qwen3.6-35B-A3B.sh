@@ -1,1 +1,0 @@
-vllm serve "Qwen/Qwen3.6-35B-A3B-FP8" --load-format fastsafetensors
